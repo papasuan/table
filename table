@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script type="text/javascript" src = "vue.min.js"></script>
+<style type="text/css">
+table {
+	border: medium solid black;
+	transition-duration:500ms;
+	transition-property:border;
+}
+
+</style>
+</head>
+<body>
+ <div><label>KEY:</label><input id = "key" placeholder = "Enter key"></div>
+ <div><label>Vlaue:</label><input id = "value" placeholder = "Enter value"></div>
+ <div id = "buttons">
+   <button id = "add">add</button>
+   <button id = "clear">clear</button>
+ </div>
+
+
+ <div id = "data"></div>
+
+
+<script type="text/javascript">
+
+  var buttons = document.getElementsByTagName('button');
+  var div = document.getElementById('data');
+  for(var i = 0;i<buttons.length;i++){
+  	  buttons[i].onclick = handpress;
+  }
+
+  function handpress(e){
+         switch (e.target.id){
+         	case 'add':
+  	  	   var key = document.getElementById('key').value;
+  	  	   var value = document.getElementById('value').value;
+  	  	   localStorage.setItem(key , value);
+  	  	   display();
+  	  	   break;
+
+  	  	   case 'clear':
+  	  	    localStorage.clear();
+  	  	    break;
+  	     }
+  }
+
+  function display(){
+
+  	  var itemcount = localStorage.length;
+  	  for(var a = 1; a <= itemcount; a++){
+        var table = document.createElement('table');
+       table.innerHTML='';
+  	  	for(var b = 0 ; (a-b)==1; b++){
+
+  	   	var key = localStorage.key(b);
+  	   	var value = localStorage[key];
+  	   	table.innerHTML += "<tr><th>"+key+":</th><td>"+value+"</td></tr>"; 
+  	   }
+  	   if(itemcount>0) {
+       div.appendChild(table);
+        }
+     
+  }
+}
+</script>
+
+</body>
+
+</html>
